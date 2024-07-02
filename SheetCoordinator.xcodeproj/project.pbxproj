@@ -14,7 +14,10 @@
 		A1268D932C33D4650036B754 /* SheetCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1268D922C33D4650036B754 /* SheetCoordinatorTests.swift */; };
 		A1268D9D2C33D4650036B754 /* SheetCoordinatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1268D9C2C33D4650036B754 /* SheetCoordinatorUITests.swift */; };
 		A1268D9F2C33D4650036B754 /* SheetCoordinatorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1268D9E2C33D4650036B754 /* SheetCoordinatorUITestsLaunchTests.swift */; };
+		A1268DAC2C33D5BB0036B754 /* SheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1268DAB2C33D5BB0036B754 /* SheetCoordinator.swift */; };
+		A1268DAE2C33D5E20036B754 /* SheetEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1268DAD2C33D5E20036B754 /* SheetEnum.swift */; };
 		A1268DB22C33F0120036B754 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A1268DB12C33F0120036B754 /* README.md */; };
+		A1268DB02C33D6080036B754 /* SheetCoordinating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1268DAF2C33D6080036B754 /* SheetCoordinating.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,7 +49,10 @@
 		A1268D982C33D4650036B754 /* SheetCoordinatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SheetCoordinatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1268D9C2C33D4650036B754 /* SheetCoordinatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetCoordinatorUITests.swift; sourceTree = "<group>"; };
 		A1268D9E2C33D4650036B754 /* SheetCoordinatorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetCoordinatorUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A1268DAB2C33D5BB0036B754 /* SheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetCoordinator.swift; sourceTree = "<group>"; };
 		A1268DB12C33F0120036B754 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		A1268DAD2C33D5E20036B754 /* SheetEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetEnum.swift; sourceTree = "<group>"; };
+		A1268DAF2C33D6080036B754 /* SheetCoordinating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetCoordinating.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,10 +104,13 @@
 		A1268D7F2C33D4640036B754 /* SheetCoordinator */ = {
 			isa = PBXGroup;
 			children = (
-				A1268D802C33D4640036B754 /* SheetCoordinatorApp.swift */,
-				A1268D822C33D4640036B754 /* ContentView.swift */,
-				A1268D842C33D4650036B754 /* Assets.xcassets */,
 				A1268D862C33D4650036B754 /* SheetCoordinator.entitlements */,
+				A1268D822C33D4640036B754 /* ContentView.swift */,
+				A1268DAF2C33D6080036B754 /* SheetCoordinating.swift */,
+				A1268DAB2C33D5BB0036B754 /* SheetCoordinator.swift */,
+				A1268D802C33D4640036B754 /* SheetCoordinatorApp.swift */,
+				A1268DAD2C33D5E20036B754 /* SheetEnum.swift */,
+				A1268D842C33D4650036B754 /* Assets.xcassets */,
 				A1268D872C33D4650036B754 /* Preview Content */,
 			);
 			path = SheetCoordinator;
@@ -263,6 +272,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1268DAE2C33D5E20036B754 /* SheetEnum.swift in Sources */,
+				A1268DB02C33D6080036B754 /* SheetCoordinating.swift in Sources */,
+				A1268DAC2C33D5BB0036B754 /* SheetCoordinator.swift in Sources */,
 				A1268D832C33D4640036B754 /* ContentView.swift in Sources */,
 				A1268D812C33D4640036B754 /* SheetCoordinatorApp.swift in Sources */,
 			);
