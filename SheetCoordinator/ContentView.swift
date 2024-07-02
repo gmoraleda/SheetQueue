@@ -46,11 +46,11 @@ enum TestSheet: String, Identifiable, SheetEnum {
     var priority: SheetPriority {
         switch self {
         case .normalPrioritySheet:
-            return .normal
+            return .custom(50)
         case .highPrioritySheet:
-            return .high
+            return .defaultHigh
         case .lowPriorityFullCover:
-            return .low
+            return .defaultHigh
         }
     }
 

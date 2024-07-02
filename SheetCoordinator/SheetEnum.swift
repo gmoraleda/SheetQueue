@@ -7,8 +7,32 @@
 
 import SwiftUI
 
-enum SheetPriority: Int {
-    case low, normal, high
+enum SheetPriority {
+    case defaultHigh
+    case defaultLow
+    case custom(Int)
+
+    var rawValue: Int {
+        switch self {
+        case .defaultHigh:
+            return 100
+        case .defaultLow:
+            return 0
+        case let .custom(value):
+            return value
+        }
+    }
+
+    init?(rawValue: Int) {
+        switch rawValue {
+        case 100:
+            self = .defaultHigh
+        case 0:
+            self = .defaultLow
+        default:
+            self = .custom(rawValue)
+        }
+    }
 }
 
 enum SheetStyle {
