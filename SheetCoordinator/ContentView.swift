@@ -50,7 +50,7 @@ enum TestSheet: String, Identifiable, SheetEnum {
         case .highPrioritySheet:
             return .defaultHigh
         case .lowPriorityFullCover:
-            return .defaultHigh
+            return .defaultLow
         }
     }
 
