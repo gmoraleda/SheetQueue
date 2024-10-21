@@ -11,9 +11,8 @@ struct ModalCoordinating: ViewModifier {
                 onDismiss: {
                     coordinator.fullScreenCoverDismissed()
                 },
-                content: { sheet in
-                    sheet
-                        .view()
+                content: { fullScreenCover in
+                    fullScreenCover.view()
                         .sheet(
                             item: $coordinator.currentSheet,
                             onDismiss: {
