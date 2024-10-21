@@ -1,57 +1,87 @@
-//
-//  SheetCoordinator.swift
-//  SheetCoordinator
-//
-//  Created by Moraleda, Guillermo (ABI) on 02.07.24.
-//
-
 import SwiftUI
 
-final class SheetCoordinator<Sheet: SheetEnum>: ObservableObject {
-    @Published var currentSheet: Sheet?
-    @Published var style: SheetStyle?
-    @Published var sheetStack: [Sheet] = []
+protocol ModalCoordinatorProvider: ObservableObject {
+    func present(_ modal: Modal)
+    func fullScreenCoverDismissed()
+}
+
+class ModalCoordinator: @preconcurrency ModalCoordinatorProvider {
+    @Published var currentSheet: Modal?
+    @Published var currentFullScreenCover: Modal?
+
+    private var sheetStack: [Modal] = []
+    private var fullScreenCoverStack: [Modal] = []
 
     @MainActor
-    func presentSheets(_ sheets: [Sheet]) {
-        let sortedSheets = sheets.sorted { $0.priority.rawValue > $1.priority.rawValue }
-        sortedSheets.forEach { presentSheet($0) }
-    }
+    func present(_ modal: Modal) {
+        if modal.style == .sheet {
+            sheetStack.append(modal)
+            sheetStack.sort { $0.priority.rawValue > $1.priority.rawValue }
 
-    @MainActor
-    func presentSheet(_ sheet: Sheet) {
-        sheetStack.append(sheet)
-        sheetStack.sort { $0.priority.rawValue > $1.priority.rawValue }
+            if sheetStack.count == 1 {
+                currentSheet = modal
+            }
 
-        if sheetStack.count == 1 {
-            print("count == 1")
-            style = sheet.style
-            currentSheet = sheet
+            // If no fullScreenCover is present, we insert a transparent view
+            // to present the sheet on top
+            if currentFullScreenCover == nil {
+                var transaction = Transaction(animation: .none)
+                transaction.disablesAnimations = true
+                withTransaction(transaction) {
+                    present(.emptyFullScreenCover)
+                }
+            }
+
         } else {
-            print("count != 1, sheetStack: \(sheetStack)")
+            fullScreenCoverStack.append(modal)
+            fullScreenCoverStack.sort { $0.priority.rawValue > $1.priority.rawValue }
+
+            if fullScreenCoverStack.count == 1 {
+                currentFullScreenCover = modal
+            }
         }
 
-        print("presentSheet: \(sheet)")
-        print("sheetStack: \(sheetStack)")
-        print("currentSheet: \(currentSheet.debugDescription)")
+        debugPrint("Presenting sheet: \(modal)")
+        debugPrint("Sheet stack: \(sheetStack)")
+        debugPrint("FullScreenCover stack: \(fullScreenCoverStack)")
     }
 
     @MainActor
     func sheetDismissed() {
-        print("sheetDismissed, before dismissed", "sheetStack: \(sheetStack)")
-
         guard !sheetStack.isEmpty else { return }
 
         sheetStack.removeFirst()
 
         if let nextSheet = sheetStack.first {
             currentSheet = nextSheet
+
         } else {
             currentSheet = nil
-            style = nil
-        }
 
-        print("sheetDismissed, after dismissed", "sheetStack: \(sheetStack)")
-        print("currentSheet: \(currentSheet.debugDescription)")
+            // If the current fullScreenCover was only supporting the current sheet, we dismiss it as well
+            if currentFullScreenCover == .emptyFullScreenCover {
+                var transaction = Transaction(animation: .none)
+                transaction.disablesAnimations = true
+                withTransaction(transaction) {
+                    fullScreenCoverDismissed()
+                }
+            }
+        }
+        debugPrint("Sheet stack: \(sheetStack)")
+    }
+
+    @MainActor
+    func fullScreenCoverDismissed() {
+        guard !fullScreenCoverStack.isEmpty else { return }
+
+        fullScreenCoverStack.removeFirst()
+
+        if let nextSheet = fullScreenCoverStack.first {
+            currentFullScreenCover = nextSheet
+
+        } else {
+            currentFullScreenCover = nil
+        }
+        debugPrint("FullScreenCover stack: \(fullScreenCoverStack)")
     }
 }
